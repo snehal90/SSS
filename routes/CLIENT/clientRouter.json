@@ -1,0 +1,7 @@
+{
+	"/" : {
+		"GET" : {
+			"route" : "DashboardController:home"
+		}
+	}
+}

@@ -1,0 +1,12 @@
+{
+	"/events" : {
+		"GET" : {
+			"route" : "EventsController:getList"
+		}
+	},
+	"/event/add" : {
+		"POST" : {
+			"route" : "EventsController:add"
+		}
+	}
+}
