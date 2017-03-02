@@ -1,0 +1,551 @@
+    {
+        "error_401" : {
+            "invalid_secret_key" : {
+                "error_code"     :   "invalid_secret_key",
+                "responseHeaders": { "status" : 401 },
+                "responseParams" : {
+                        "status" : "error",
+                        "message": "Invalid secret key",
+                        "error_code"     :   "invalid_secret_key"
+                    }
+            },
+            "invalid_credentials"   : {
+                "error_code"      :  "invalid_credentials",
+                "responseHeaders" : { "status" : 401},
+                "responseParams"  : {
+                        "status" : "error",
+                        "message": "Invalid email Id or password",
+                        "error_code"      :  "invalid_credentials"
+                    }
+            },
+            "invalid_access_token"   : {
+                "error_code"      :  "invalid_access_token",
+                "responseHeaders" : { "status" : 401},
+                "responseParams"  : {
+                        "status" : "error",
+                        "message": "Invalid access token",
+                        "error_code"      :  "invalid_access_token"
+                    }
+            },
+            "invalid_fb_access_token" : {
+                "error_code"        : "invalid_fb_access_token",
+                "responseHeaders"   : { "status" : 401},
+                "responseParams"    : {
+                        "status"  : "error",
+                        "message" : "Invalid facebook access token",
+                        "error_code"        : "invalid_fb_access_token"
+                    }
+            },
+            "invalid_request_id" : {
+                "error_code"        : "invalid_request_id",
+                "responseHeaders"   : { "status" : 401},
+                "responseParams"    : {
+                        "status"  : "error",
+                        "message" : "Invalid Requested Id",
+                        "error_code"        : "invalid_request_id"
+                    }
+            },
+            "invalid_IP"   : {
+                "error_code"      :  "invalid_IP",
+                "responseHeaders" : { "status" : 401},
+                "responseParams"  : {
+                        "status" : "error",
+                        "message": "Caller IP not registered/Merchant Not found.",
+                        "error_code"      :  "invalid_IP"
+                    }
+            }
+        },
+        "error_400" : {
+            "email_phone_duplicate" : {
+                "error_code"     :   "email_phone_duplicate",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Email id or Phone no. already exists",
+                                        "error_code"     :   "email_phone_duplicate"
+                                   }
+            },
+            "email_duplicate" : {
+                "error_code"     :   "email_duplicate",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Email id already exists",
+                                        "error_code"     :   "email_duplicate"
+                                   }
+            },
+            "invalid_params" : {
+                "error_code"     :   "invalid_params",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Invalid request parameters",
+                                        "error_code"     :   "invalid_params"
+                                   }
+            },
+            "custom_invalid_params" : {
+                "error_code"     :   "invalid_params",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "",
+                                        "error_code"     :   "invalid_params"
+                                   }
+            },
+            "invalid_userid" : {
+                "error_code"     :   "invalid_userid",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Invalid User Id",
+                                        "error_code"     :   "invalid_userid"
+                                   }
+            },
+            "invalid_data"   : {
+                "error_code"      :  "invalid_data",
+                "responseHeaders" : { "status" : 400},
+                "responseParams"  : {
+                        "status" : "error",
+                        "message": "Invalid data provided",
+                        "error_code"      :  "invalid_data"
+                    }
+            },
+            "invalid_stores"   : {
+                "error_code"      :  "invalid_stores",
+                "responseHeaders" : { "status" : 400},
+                "responseParams"  : {
+                        "status" : "error",
+                        "message": "Invalid stores provided",
+                        "error_code"      :  "invalid_stores"
+                    }
+            },
+            "invalid_product"   : {
+                "error_code"      :  "invalid_product",
+                "responseHeaders" : { "status" : 400},
+                "responseParams"  : {
+                        "status" : "error",
+                        "message": "No product found",
+                        "error_code"      :  "invalid_product"
+                    }
+            },
+            "min_amount" : {
+                "error_code"     :   "max_amount",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Amount less than minimum allowed Transaction",
+                                        "error_code"     :   "max_amount"
+                                   }
+            },
+            "insufficient_balance" : {
+                "error_code"     :   "insufficient_balance",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Insufficient balance to make a transaction",
+                                        "error_code"     :   "insufficient_balance"
+                                   }
+            },
+            "invalid_transaction_id" : {
+                "error_code"     :   "invalid_transaction_id",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Invalid transaction id",
+                                        "error_code"     :   "invalid_transaction_id"
+                                   }
+            },
+            "invalid_thanks" : {
+                "error_code"     :   "invalid_thanks",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "User not allowed to THANK",
+                                        "error_code"     :   "invalid_thanks"
+                                   }
+            },
+            "invalid_otp"   : {
+                "error_code"     :   "invalid_otp",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Invalid/Expired Otp Code",
+                                        "error_code"     :   "invalid_otp"
+                                   }
+            },
+            "invalid_password"   : {
+                "error_code"     :   "invalid_password",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Invalid Password",
+                                        "error_code"     :   "invalid_password"
+                                   }
+            },
+            "invalid_phone_no"   : {
+                "error_code"     :   "invalid_phone_no",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Invalid Phone No",
+                                        "error_code"     :   "invalid_phone_no"
+                                   }
+            },
+            "invalid_quote_id" : {
+                "error_code"      :  "invalid_quote_id",
+                "responseHeaders" : { "status" : 400},
+                "responseParams"  : {
+                        "status" : "error",
+                        "message": "Invalid Quote Id provided.",
+                        "error_code"      :  "invalid_quote_id"
+                    }
+            },
+            "invalid_order_id" : {
+                "error_code"      :  "invalid_order_id",
+                "responseHeaders" : { "status" : 400},
+                "responseParams"  : {
+                        "status" : "error",
+                        "message": "Invalid Order Id provided.",
+                        "error_code"      :  "invalid_order_id"
+                    }
+            },
+            "order_exists" : {
+                "error_code"      :  "order_exists",
+                "responseHeaders" : { "status" : 400},
+                "responseParams"  : {
+                        "status" : "error",
+                        "message": "Order already exists for the quote.",
+                        "error_code"      :  "order_exists"
+                    }
+            },
+            "invalid_promo_code"   : {
+                "error_code"     :   "invalid_promo_code",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Sorry. This promo code is not valid!",
+                                        "error_code"     :   "invalid_promo_code"
+                                   }
+            },
+            "applied_promo_code"   : {
+                "error_code"     :   "applied_promo_code",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Promo code has already been applied",
+                                        "error_code"     :   "applied_promo_code"
+                                   }
+            },
+            "single_promo_code"   : {
+                "error_code"     :   "single_promo_code",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Promo Code has already been used",
+                                        "error_code"     :   "single_promo_code"
+                                   }
+            },
+            "single_user_promo_code"   : {
+                "error_code"     :   "single_user_promo_code",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Promo Code has been used by the user previously",
+                                        "error_code"     :   "single_user_promo_code"
+                                   }
+            },
+            "min_price_promo_code"   : {
+                "error_code"     :   "min_price_promo_code",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "This Promo Code can only be applied if purchased above a certain price limit",
+                                        "error_code"     :   "min_price_promo_code"
+                                   }
+            },
+            "user_login_for_promo_code"   : {
+                "error_code"     :   "user_login_for_promo_code",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Please login to use this coupon",
+                                        "error_code"     :   "user_login_for_promo_code"
+                                   }
+            },
+            "promo_code_no_override"   : {
+                "error_code"     :   "promo_code_no_override",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Promo Code cannot be overridden over existing promo code",
+                                        "error_code"     :   "promo_code_no_override"
+                                   }
+            },
+            "invalid_purchase_type"   : {
+                "error_code"     :   "invalid_purchase_type",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Invalid purchase type.",
+                                        "error_code": "invalid_purchase_type",
+                                        "error_code"     :   "invalid_purchase_type"
+                                   }
+            },
+            "invalid_referrer_type"   : {
+                "error_code"     :   "invalid_referrer_type",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Coupon which you have applied is either not applicable or have expired.",
+                                        "error_code": "invalid_referrer_type"
+                                   }
+            },
+            "invalid_quote_info" : {
+                "error_code"     :   "invalid_quote_info",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Invalid Quote Information",
+                                        "error_code"     :   "invalid_quote_info"
+                                   }
+            },
+            "invalid_payment_info" : {
+                "error_code"     :   "invalid_payment_info",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Invalid Payment Information",
+                                        "error_code"     :   "invalid_payment_info"
+                                   }
+            },
+            "invalid_time_slot" : {
+                "error_code"     :   "invalid_time_slot",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Invalid Time Slot",
+                                        "error_code"     :   "invalid_time_slot"
+                                    }
+            },
+            "already_applied" : {
+                "error_code"     :   "already_applied",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Process has been done.",
+                                        "error_code"     :   "already_applied"
+                                   }
+            },
+            "no_store_info" : {
+                "error_code"     :   "no_store_info",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "No store information avalibale for the product",
+                                        "error_code"     :   "no_store_info"
+                                   }
+            },
+            "payment_method_invalid" : {
+                "error_code"     :   "payment_method_invalid",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Invalid Payment Method",
+                                        "error_code"     :   "payment_method_invalid"
+                                   }
+            },
+            "invalid_merchant"   : {
+                "error_code"      :  "invalid_merchant",
+                "responseHeaders" : { "status" : 400},
+                "responseParams"  : {
+                        "status" : "error",
+                        "message": "Invalid merchant.",
+                        "error_code"      :  "invalid_merchant"
+                    }
+            },
+            "invalid_retailer" : {
+                "error_code"     :   "invalid_retailer",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Invalid Retailer.",
+                                        "error_code"     :   "invalid_retailer"
+                                   }
+            },
+            "invalid_order" : {
+                "error_code"     :   "invalid_order",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Invalid Order.",
+                                        "error_code"     :   "invalid_order"
+                                   }
+            },
+            "invalid_status" : {
+                "error_code"     :   "invalid_status",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Invalid Status provided.",
+                                        "error_code"     :   "invalid_status"
+                                   }
+            },
+            "no_merchant_token" : {
+                "error_code"     :   "no_merchant_token",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "No Token provided.",
+                                        "error_code"     :   "no_merchant_token"
+                                   }
+            },
+            "invalid_checksum" : {
+                "error_code"     :   "invalid_checksum",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Invalid Checksum.",
+                                        "error_code"     :   "invalid_checksum"
+                                   }
+            },
+            "invalid_store_response" : {
+                "error_code"     :   "invalid_store_response",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Store Response not recorded properly.",
+                                        "error_code"     :   "invalid_store_response"
+                                   }
+            },
+            "duplicate_comment" : {
+                "error_code"     :   "duplicate_comment",
+                "responseHeaders": { "status" : 400 },
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Duplicate comment detected.",
+                                        "error_code"     :   "duplicate_comment"
+                                   }
+            },
+            "outofstock" : {
+                "error_code"     :   "outofstock",
+                "responseHeaders":  { "status" : 400 },
+                "responseParams" :  {
+                                        "status" : "success",
+                                        "message": "Product is out of stock",
+                                        "error_code"     :   "outofstock"
+                                    }
+            }
+        },
+        "error_403" : {
+            "server_error" : {
+                "error_code"     :   "server_error",
+                "responseHeaders": {"status" : 403},
+                "responseParams" : {
+                                        "status" : "error",
+                                        "message": "Unable to process request",
+                                        "error_code"     :   "server_error"
+                                   }
+            }
+        },
+        "error_501" : {
+            "promo_code_expired" : {
+                "error_code"     :   "promo_code_expired",
+                "responseHeaders":  { "status" : 501 },
+                "responseParams" :  {
+                                        "status" : "error",
+                                        "message": "Sorry. This promo code has expired!",
+                                        "error_code": "promo_code_expired"
+                                    }
+            },
+            "no_inventory"   : {
+                "error_code"      :  "no_inventory",
+                "responseHeaders" : { "status" : 501 },
+                "responseParams"  : {
+                                        "status" : "error",
+                                        "message": "Some of the products are currently out of stock.",
+                                        "error_code":  "no_inventory"
+                                    }
+            }
+        },
+        "error_477" : {
+            "expired_access_token" : {
+                "error_code"     :   "expired_access_token",
+                "responseHeaders":  { "status" : 477 },
+                "responseParams" :  {
+                                        "status" : "error",
+                                        "message": "Expired access token",
+                                        "error_code"     :   "expired_access_token"
+                                    }
+            },
+            "expired_secret_key" : {
+                "error_code"     :   "expired_secret_key",
+                "responseHeaders":  { "status" : 477 },
+                "responseParams" :  {
+                                        "status" : "error",
+                                        "message": "Expired Secret Key",
+                                        "error_code"     :   "expired_secret_key"
+                                    }
+            }
+        },
+        "error_200" : {
+            "no_friends_on_pretr" : {
+                "error_code"     :   "no_friends_on_pretr",
+                "responseHeaders":  { "status" : 200 },
+                "responseParams" :  {
+                                        "status" : "error",
+                                        "message": "You have no friends on pretr",
+                                        "error_code"     :   "no_friends_on_pretr"
+                                    }
+            },
+            "sync_fb" : {
+                "error_code"     :   "sync_fb",
+                "responseHeaders":  { "status" : 200 },
+                "responseParams" :  {
+                                        "status" : "error",
+                                        "message": "Sync your facebook contact",
+                                        "error_code"     :   "sync_fb"
+                                    }
+            },
+            "sync_contact" : {
+                "error_code"     :   "sync_contact",
+                "responseHeaders":  { "status" : 200 },
+                "responseParams" :  {
+                                        "status" : "error",
+                                        "message": "Sync your phone contact",
+                                        "error_code"     :   "sync_contact"
+                                    }
+            },
+            "no_result" : {
+                "error_code"     :   "no_result",
+                "responseHeaders":  { "status" : 200 },
+                "responseParams" :  {
+                                        "status" : "error",
+                                        "message": "No result found!!!",
+                                        "error_code"     :   "no_result"
+                                    }
+            },
+            "success" : {
+                "error_code"     :   "success",
+                "responseHeaders":  { "status" : 200 },
+                "responseParams" :  {
+                                        "status" : "success",
+                                        "message": "Operation performed successfully",
+                                        "error_code"     :   "success"
+                                    }
+            },
+            "duplicate" : {
+                "error_code"     :   "duplicate",
+                "responseHeaders":  { "status" : 200 },
+                "responseParams" :  {
+                                        "status" : "duplicate",
+                                        "message": "Record is already inserted",
+                                        "error_code"     :   "duplicate"
+                                    }
+            },
+
+            "invalid_json":{
+                "status":"error",
+                "msg":"not valid json format"
+            }
+        }
+    }
