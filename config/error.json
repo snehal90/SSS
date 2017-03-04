@@ -434,6 +434,24 @@
                                         "message": "Product is out of stock",
                                         "error_code"     :   "outofstock"
                                     }
+            },
+            "file_upload_failed" : {
+                "error_code"     :   "file_upload_failed",
+                "responseHeaders":  { "status" : 400 },
+                "responseParams" :  {
+                                        "status" : "error",
+                                        "message": "File upload operation failed",
+                                        "error_code"     :   "file_upload_failed"
+                                    }
+            },
+            "invalid_file" : {
+                "error_code"     :   "invalid_file",
+                "responseHeaders":  { "status" : 400 },
+                "responseParams" :  {
+                                        "status" : "error",
+                                        "message": "Invalid file provided",
+                                        "error_code"     :   "invalid_file"
+                                    }
             }
         },
         "error_403" : {

@@ -10,6 +10,8 @@ var env_config = require('./config/env')();
 
 console.log(env_config, "::::env_config");
 
+global.ROOT_DIR = __dirname + '/';
+global.BASE_URL = '//' + env_config.api_host + ':' + env_config.port + '/';
 
 var app = express();
 var db_file = require('./db');
@@ -28,7 +30,7 @@ app.set('port', env_config.port);
 app.use(logger(env_config.mode));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(multer({dest:'./uploads/'}).any());
+app.use(multer({dest:'./temp/'}).any());
 app.use(cookieParser());
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
