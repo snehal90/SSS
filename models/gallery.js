@@ -25,3 +25,15 @@ exports.save = function(data, callback) {
 	});
 
 }
+
+exports.update = function(callback, images_data, images_condition) {
+	gallery.update(images_condition, images_data, function(err, res_dt) {
+    	if(err) {
+    		var error = errorCodes.error_403.server_error;
+			callback(error);
+    	} else {
+			var result_response = errorCodes.error_200.success;
+			callback(null, result_response);
+		}
+    });
+};

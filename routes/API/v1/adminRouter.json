@@ -8,5 +8,10 @@
 		"POST" : {
 			"route" : "EventsController:add"
 		}
+	},
+	"/event/update/:slug" : {
+		"POST" : {
+			"route" : "EventsController:update"
+		}
 	}
 }

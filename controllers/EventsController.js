@@ -7,7 +7,6 @@ exports.getList = function(req, res, callback) {
 		if(err) {
 			return res.status(err.responseHeaders).send(err.responseParams);
 		}
-		console.log(ret_data, "::::ret_data");
 		res.status(ret_data.responseHeaders).send(ret_data.responseParams);
 	}, query);
 };
@@ -19,7 +18,20 @@ exports.add = function(req, res, callback) {
 		if(err) {
 			return res.status(err.responseHeaders).send(err.responseParams);
 		}
-		// console.log(ret_data, "::::list");
 		return res.status(ret_data.responseHeaders).send(ret_data.responseParams);
 	});
+};
+
+exports.update = function(req, res, callback) {
+	var slug = req.params.slug;
+	var data = req.body;
+	data['images'] = req.files;
+
+	event_model.update(function(err, ret_data) {
+		if(err) {
+			return res.status(err.responseHeaders).send(err.responseParams);
+		}
+		delete ret_data.responseParams.data;
+		return res.status(ret_data.responseHeaders).send(ret_data.responseParams);
+	}, data, slug);
 };

@@ -35,6 +35,19 @@ app.use(cookieParser());
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
+allowCrossDomain = function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, Content-Type, Authorization, Content-Length, X-Requested-With');
+  if ('OPTIONS' === req.method) {
+    res.sendStatus(200);
+  } else {
+    next();
+  }
+};
+
+app.use(allowCrossDomain);
+
 // error handlers
 
 // development error handler
@@ -61,11 +74,11 @@ app.use(function(err, req, res, next) {
 console.log(env_config.api_host + ':' + env_config.port, '::::in app');
 console.log(env_config.client_host + ':' + env_config.port, '::::in client app');
 // console.log(db_obj);
-var clientRouter = require('./config/clientRouter')(express);
+// var clientRouter = require('./config/clientRouter')(express);
 var adminRouter = require('./config/adminRouter')(express);
 
 app.use(vhost(env_config.api_host, adminRouter.obj));
-app.use(vhost(env_config.client_host, clientRouter.obj));
+// app.use(vhost(env_config.client_host, clientRouter.obj));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
