@@ -9,9 +9,19 @@
 			"route" : "EventsController:add"
 		}
 	},
-	"/event/update/:slug" : {
+	"/event/update/:unique_id" : {
 		"POST" : {
 			"route" : "EventsController:update"
+		}
+	},
+	"/fileUpload" : {
+		"POST" : {
+			"route" : "UtilController:fileUpload"
+		}
+	},
+	"/deleteFiles" : {
+		"POST" : {
+			"route" : "UtilController:deleteFiles"
 		}
 	}
 }

@@ -18,7 +18,7 @@ const UPLOAD_SIZES = [
     },
     {
         'key' : 'THUMB',
-        'width' : 75
+        'width' : 100
     }
 ];
 // var cloudinary = require('cloudinary');
@@ -79,14 +79,15 @@ function uploadImages (callback, images, type, is_update) {
             async.eachSeries(UPLOAD_SIZES, function(sizes, cb2) {
                 var key = sizes.key;
 
-                img_path += "/" + key;
-                if (!fs.existsSync(img_path)){
-                    fs.mkdirSync(img_path);
+                var img_temp_path = img_path;
+                img_temp_path += "/" + key;
+                if (!fs.existsSync(img_temp_path)){
+                    fs.mkdirSync(img_temp_path);
                 }
 
                 im.resize({
                     srcPath: newPath,
-                    dstPath: img_path + "/" + imageName,
+                    dstPath: img_temp_path + "/" + imageName,
                     strip : false,
                     width : sizes.width
                 }, 
@@ -99,7 +100,7 @@ function uploadImages (callback, images, type, is_update) {
                         if(i == 0) {
                             var default_img = images_list.length == 0 && is_update != 1 ? 1 : 0; 
                             images_list[images_list.length] = {'default' : default_img, 'path' : '/uploads/' + type + '/' + imageName, 'image_path' : BASE_URL + 'uploads/' + type + '/' + imageName};
-                            gallery_list[gallery_list.length] = {'type' : type, 'path' : '/uploads/' + type + imageName, 'image_path' : BASE_URL + 'uploads/' + type + '/' + imageName, 'is_active' : 1};
+                            gallery_list[gallery_list.length] = {'type' : type, 'path' : '/uploads/' + type + '/' + imageName, 'image_path' : BASE_URL + 'uploads/' + type + '/' + imageName, 'is_active' : 1};
                         }
                         i++;
                         cb2();

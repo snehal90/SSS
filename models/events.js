@@ -17,9 +17,9 @@ var file_helper_obj = require('../helpers/file_helper');
 //date validation
 Checkit.Validator.prototype.datetime = function(val, with_time) {
 	// console.log(moment_tz.tz.guess(), ":::tz");
-	var dt_moment = moment(val, 'DD-MM-YYYY HH:mm', true);
-	var dt_val = dt_moment.format('DD-MM-YYYY HH:mm');
-	var curernt_val = moment().format('DD-MM-YYYY HH:mm');
+	var dt_moment = moment(val, 'YYYY-MM-DD HH:mm', true);
+	var dt_val = dt_moment.format('YYYY-MM-DD HH:mm');
+	var curernt_val = moment().format('YYYY-MM-DD HH:mm');
 	var dt_timestamp = dt_moment.valueOf();
 	var current_timestamp = moment().valueOf();
 	// console.log(moment(val, 'MM/DD/YYYY HH:mm').utc().format('MM/DD/YYYY HH:mm'), ":::UTC date");
@@ -82,8 +82,8 @@ exports.add = function(data, callback) {
 	var body = data;
 
 	checkit.run(body).then(function(validated) {
-		var start_date_timestamp = moment(data['start_date'], 'DD-MM-YYYY HH:mm', true).valueOf();
-		var end_date_timestamp = moment(data['end_date'], 'DD-MM-YYYY HH:mm', true).valueOf();
+		var start_date_timestamp = moment(data['start_date'], 'YYYY-MM-DD HH:mm', true).valueOf();
+		var end_date_timestamp = moment(data['end_date'], 'YYYY-MM-DD HH:mm', true).valueOf();
 		if(start_date_timestamp > end_date_timestamp) {
 			var error = errorCodes.error_400.custom_invalid_params;
 			error.responseParams.message = 'The end date should not be before start date';
@@ -106,25 +106,19 @@ exports.add = function(data, callback) {
 				data['slug'] = slug(data['name']);
 				data['unique_id'] = 'EVENTS_' + moment().valueOf();
 				data['created_at'] = data['updated_at'] = moment().format();
+				data['start_date'] = moment(data['start_date'], 'YYYY-MM-DD HH:mm', true).format();
+				data['end_date'] = moment(data['end_date'], 'YYYY-MM-DD HH:mm', true).format();
 				data['created_by'] = data['updated_by'] = 'admin@gmail.com';
 				data['is_active'] = !data['is_active'] ? 1 : data['is_active'];
 				data['content_type'] = 'EVENT';
 
 				gallery_list = [];
-				if(data['images'].length != 0) {
-					file_helper_obj.uploadImages(function(err, res_dt) {
-						if(err) { 
-							callback(err);
-						} else {
-							data['images'] = res_dt['images_list'];
-							gallery_list = res_dt['gallery_list'];
-
-							save(data, gallery_list, 0, callback);
-						}
-					}, data['images'], 'EVENT');
-				} else {
-					save(data, gallery_list, 0, callback);
+				if(data['gallery'] != undefined && data['gallery'].length != 0) {
+					gallery_list = data['gallery'];
 				}
+				
+				delete data['gallery'];
+				save(data, gallery_list, 0, callback);
 			}
 		}, {'name' : data['name']});
 
@@ -137,8 +131,8 @@ exports.add = function(data, callback) {
 };
 
 function setTypeVal(data) {
-	var start_date_timestamp = moment(data['start_date'], 'DD-MM-YYYY HH:mm', true).valueOf();
-	var end_date_timestamp = moment(data['end_date'], 'DD-MM-YYYY HH:mm', true).valueOf();
+	var start_date_timestamp = moment(data['start_date']).valueOf();
+	var end_date_timestamp = moment(data['end_date']).valueOf();
 	var current_timestamp = moment().valueOf();
 
 	var type = 'past';
@@ -168,6 +162,7 @@ function save (data, gallery_list, is_update, callback) {
 		});
 	} else {
 		events.update(data.condition, data.update, function(err, dt) {
+			console.log(err, ":::err");
 			if(err) {
 				var error = errorCodes.error_403.server_error;
 				callback(error);
@@ -199,19 +194,23 @@ function getList(callback, query) {
 				} else if(i == 'slug' || i == 'unique_id') {
 					var val = query[i].split(',');
 					qry[i] = {'$in' : val};
-				} else if(i == 'start_date' || i == 'end_date') {
-					qry[i] = {'$gte' : moment(query[i], 'DD-MM-YYYY').format('DD-MM-YYYY HH:mm')};
+				} else if(i == 'start_date') {
+					console.log(query[i], ":::::query[i]");
+					qry[i] = {'$gte' : moment(query[i]).format()};
+				} else if(i == 'end_date') {
+					console.log(query[i], ":::::query[i]");
+					qry[i] = {'$lte' : moment(query[i]).format()};
 				} else if(i == 'date') {
 					var val = query[i].split(',');
-					qry['start_date'] = {'$gte' : moment(val[0], 'DD-MM-YYYY').format('DD-MM-YYYY') + ' 00:00'};
-					qry['end_date'] = {'$lte' : moment(val[1], 'DD-MM-YYYY').format('DD-MM-YYYY') + ' 23:59'};
+					qry['start_date'] = {'$gte' : moment(val[0]).format()};
+					qry['end_date'] = {'$lte' : moment(val[1]).format()};
 				} else if(i == 'type') {
 					if(query[i].toLowerCase() == 'upcoming') {
-						qry['start_date'] = {'$gt' : moment().format('DD-MM-YYYY HH:mm')};
-						qry['end_date'] = {'$gt' : moment().format('DD-MM-YYYY HH:mm')};
+						qry['start_date'] = {'$gt' : moment().format()};
+						qry['end_date'] = {'$gt' : moment().format()};
 					} else if(query[i].toLowerCase() == 'past') {
-						qry['start_date'] = {'$lt' : moment().format('DD-MM-YYYY HH:mm')};
-						qry['end_date'] = {'$lt' : moment().format('DD-MM-YYYY HH:mm')};
+						qry['start_date'] = {'$lt' : moment().format()};
+						qry['end_date'] = {'$lt' : moment().format()};
 					}
 				} else if(i == 'is_active') {
 					qry[i] = parseInt(query[i], 10);
@@ -227,7 +226,8 @@ function getList(callback, query) {
 	}
 
 	var offset = (parseInt(page, 10) - 1) * limit;
-	
+	console.log(query, ":::query");
+	console.log(qry, ":::qry");
 	async.parallel([
 		function(cb1) { //get query result
 			events.find(qry, select_query).sort(sort).limit(limit).skip(offset).toArray(function (err, list) {
@@ -271,6 +271,7 @@ function getList(callback, query) {
 			delete res_dt.responseParams.count;
 			res_dt.responseParams.data = result[0].data;
 			res_dt.responseParams.meta = result[1].meta;
+			// console.log(result[0].data, ":::result[0].data");
 			callback(null, res_dt);
 		}
 	});
@@ -295,16 +296,16 @@ exports.getCount = getCount;
 
 
 //update new event
-exports.update = function(callback, data, slug) {
+exports.update = function(callback, data, unique_id) {
 	var checkit = new Checkit({
-		slug : [
+		unique_id : [
 			{
 				rule : 'required',
-				message : 'Please provide the slug of event'
+				message : 'Please provide the unique_id of event'
 			},
 			{
 				rule : 'string',
-				message : 'The slug of event must be a string'
+				message : 'The unique_id of event must be a string'
 			}
 		],
 		start_date : [
@@ -319,13 +320,13 @@ exports.update = function(callback, data, slug) {
 		]
 	});
 
-	var body = {'slug' : slug};
+	var body = {'unique_id' : unique_id};
 
 	var remove_keys = ['name', 'slug', 'unique_id', 'content_type'];
 
 	checkit.run(body).then(function(validated) {
-		var start_date_timestamp = moment(data['start_date'], 'DD-MM-YYYY HH:mm', true).valueOf();
-		var end_date_timestamp = moment(data['end_date'], 'DD-MM-YYYY HH:mm', true).valueOf();
+		var start_date_timestamp = moment(data['start_date'], 'YYYY-MM-DD HH:mm', true).valueOf();
+		var end_date_timestamp = moment(data['end_date'], 'YYYY-MM-DD HH:mm', true).valueOf();
 		if(start_date_timestamp > end_date_timestamp) {
 			var error = errorCodes.error_400.custom_invalid_params;
 			error.responseParams.message = 'The end date should not be before start date';
@@ -339,12 +340,22 @@ exports.update = function(callback, data, slug) {
 
 		var update_data = {};
 		update_data.update = {};
-		update_data.condition = {'slug' : slug};
+		update_data.condition = {'unique_id' : unique_id};
 		data['updated_at'] = moment().format();
 		data['updated_by'] = 'admin@gmail.com';
+
+		if(data['start_date'] != undefined) {
+			data['start_date'] = moment(data['start_date'], 'YYYY-MM-DD HH:mm', true).format();
+		}
+		if(data['end_date'] != undefined) {
+			data['end_date'] = moment(data['end_date'], 'YYYY-MM-DD HH:mm', true).format();
+		}
+		if(data['is_active'] != undefined) {
+			data['is_active'] = parseInt(data['is_active'], 10);
+		}
 		var gallery_list = [];
 		if(data['remove_images'] && data['remove_images'].length != 0) {
-			var remove_images = data['remove_images'].split(',');
+			var remove_images = data['remove_images'];
 			console.log(remove_images, ":::remove_images");
 			var delete_data = {};
 			delete_data.update = {};
@@ -354,38 +365,35 @@ exports.update = function(callback, data, slug) {
 			deleteImages(function() {}, delete_data.update, delete_data.condition);
 			delete data['remove_images'];
 		}
-		if(data['images'] && data['images'].length != 0) {
-			file_helper_obj.uploadImages(function(err, res_dt) {
-				if(err) { 
-					callback(err);
-				} else {
-					data['images'] = res_dt['images_list'];
-					gallery_list = res_dt['gallery_list'];
-
-					update_data.update['$push'] = {'images' : { '$each' : data['images']}};
-					delete data['images'];
-					update_data.update['$set'] = data;
-					save(update_data, gallery_list, 1, callback);
-				}
-			}, data['images'], 'EVENT', 1);
-		} else {
-			delete data['images'];
-			update_data.update['$set'] = data;
-			save(update_data, gallery_list, 1, callback);
+		if(data['gallery'] != undefined && data['gallery'].length != 0) {
+			gallery_list = data['gallery'];
 		}
+		
+		delete data['gallery'];
+		if(data['images'] && data['images'].length != 0) {
+			update_data.update['$push'] = {'images' : { '$each' : data['images']}};
+			delete data['images'];
+			// save(update_data, gallery_list, 1, callback);
+		}
+		update_data.update['$set'] = data;
+		save(update_data, gallery_list, 1, callback);
 
 	});
 };
 
 
 function deleteImages (callback, images_data, images_condition) {
-    events.update(images_condition, {'$pull' : {'images' : {'image_path' : {'$in' : images_data}}}}, function(err, res_dt) {
+    events.update(images_condition, {'$pull' : {'images' : {'path' : {'$in' : images_data}}}}, function(err, res_dt) {
 
     	if(err) {
     		var error = errorCodes.error_403.server_error;
 			callback(error);
     	} else {
-			gallery.update(function() {}, {'$set' : {'is_active' : 0}}, {'image_path': {'$in' : images_data}});
+			gallery.update(function() {}, {'$set' : {'is_active' : 0}}, {'path': {'$in' : images_data}});
+			var utils_controller = require('../controllers/UtilController');
+			var req = {};
+			req['body'] = {'file_paths' : JSON.stringify(images_data)};
+			utils_controller.deleteFiles(req);
 			var result_response = errorCodes.error_200.success;
 			callback(null, result_response);
 		}

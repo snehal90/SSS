@@ -34,7 +34,9 @@ $(document).ready(function(){
             $(this).parents(".gallery-item").removeClass("active");
         }
     });
-    $(".gallery-item-remove").on("click",function(){
+    $(document).on("click", ".gallery-item-remove", function(ev){
+        ev.stopPropagation();
+        ev.preventDefault();
         $(this).parents(".gallery-item").fadeOut(400,function(){
             $(this).remove();
         });
@@ -119,8 +121,9 @@ $(document).ready(function(){
         }        
         return false;
     });
-    $(".mb-control-close").on("click",function(){
+    $(document).on("click", ".mb-control-close", function(){
        $(this).parents(".message-box").removeClass("open");
+       $(this).parents(".message-box").hide();
        return false;
     });    
     /* END MESSAGE BOX */

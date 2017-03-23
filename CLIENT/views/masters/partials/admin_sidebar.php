@@ -2,7 +2,7 @@
     <!-- START X-NAVIGATION -->
     <ul class="x-navigation">
         <li class="xn-logo">
-            <a href="index.html">Joli Admin</a>
+            <a href="index.html">Admin</a>
             <a href="#" class="x-navigation-control"></a>
         </li>
         <li class="xn-profile">
@@ -16,10 +16,10 @@
                 <div class="profile-data">
                     <div class="profile-data-name">Admin</div>
                 </div>
-                <div class="profile-controls">
+                <!-- <div class="profile-controls">
                     <a href="/pages-profile.html" class="profile-control-left"><span class="fa fa-info"></span></a>
                     <a href="/pages-messages.html" class="profile-control-right"><span class="fa fa-envelope"></span></a>
-                </div>
+                </div> -->
             </div>                                                                        
         </li>
         <li class="xn-title">Navigation</li>

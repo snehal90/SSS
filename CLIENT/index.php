@@ -20,6 +20,8 @@
         <script type="text/javascript" src="/js/angular.min.js"></script>
         <script type="text/javascript" src="/js/angular-ui-router.min.js"></script>
         <script type="text/javascript" src="/js/angular-css.min.js"></script>
+        <script type="text/javascript" src="/js/ng-file-upload-shim.min.js"></script>
+        <script type="text/javascript" src="/js/ng-file-upload.min.js"></script>
         <script type="text/javascript" src="/js/custom/config.js"></script>
         <script type="text/javascript" src="/js/custom/frontend.js"></script>
         <script type="text/javascript" src="/js/custom/admin.js"></script>

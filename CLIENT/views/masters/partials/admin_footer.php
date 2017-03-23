@@ -36,12 +36,15 @@
 <script type="text/javascript" src="/js/plugins/rickshaw/rickshaw.min.js"></script>
 <script type='text/javascript' src='/js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js'></script>
 <script type='text/javascript' src='/js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js'></script>                
-<script type='text/javascript' src='/js/plugins/bootstrap/bootstrap-datepicker.js'></script>                
-<script type="text/javascript" src="/js/plugins/owl/owl.carousel.min.js"></script>                 
+<script type='text/javascript' src='/js/plugins/bootstrap/bootstrap-datepicker.js'></script>
+<script type="text/javascript" src="/js/plugins/bootstrap/bootstrap-timepicker.min.js"></script>
+<script type="text/javascript" src="/js/plugins/owl/owl.carousel.min.js"></script>
+<script type="text/javascript" src="/js/plugins/blueimp/jquery.blueimp-gallery.min.js"></script>                 
 
 <script type="text/javascript" src="/js/plugins/moment.min.js"></script>
 <script type="text/javascript" src="/js/plugins/daterangepicker/daterangepicker.js"></script>
-<script type="text/javascript" src="/js/plugins/datatables/jquery.dataTables.min.js"></script>                 
+<script type="text/javascript" src="/js/plugins/datatables/jquery.dataTables.js"></script> 
+<script type="text/javascript" src="/js/plugins/summernote/summernote.js"></script>
 <!-- END THIS PAGE PLUGINS-->        
 
 <!-- START TEMPLATE -->

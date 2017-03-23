@@ -2,22 +2,33 @@
 
 	$req_list = json_decode($_GET['req_list']);
 	$url = $_GET['url'];
-	$limit = isset($_GET['iDisplayLength']) ? $_GET['iDisplayLength'] : 20;
+    $limit = isset($_GET['iDisplayLength']) ? $_GET['iDisplayLength'] : 20;
+	$req_type = isset($_GET['req_type']) ? $_GET['req_type'] : 'EVENT';
 	$offest = isset($_GET['iDisplayStart']) ? $_GET['iDisplayStart'] : 0;
 	$sort_col = isset($_GET['iSortCol_0']) ? $_GET['iSortCol_0'] : '';
 	$sort_val = isset($_GET['sSortDir_0']) ? $_GET['sSortDir_0'] : 'asc';
-	$id_link = isset($_GET['id_link']) ? $_GET['id_link'] : '';
+    $id_link = isset($_GET['id_link']) ? $_GET['id_link'] : '';
+	$filter_list = isset($_GET['filter_list']) ? json_decode($_GET['filter_list'], true) : [];
 	$sort_val = $sort_val == 'asc' ? 1 : -1;
 	// $page = intval((intval($offest) * intval($limit)) / intval($limit)) == 0 ? 1 : intval((intval($offest) * intval($limit)) / intval($limit));
 	$page = intval(intval($offest) / intval($limit)) + 1;
+    if(strpos($url, '?') === false) {
+        $url .= '?';
+    } else {
+        $url .= '&';
+    }
+    $url .= 'limit=' . $limit . '&page=' . $page;
 
-	$url .= '?limit=' . $limit . '&page=' . $page;
+    if(!empty($sort_col)) {
+        $url .= '&sort={"' . $req_list[$sort_col] . '":' . $sort_val .'}';
+    }
+ 
 
-	if(!empty($sort_col)) {
-		$url .= '&sort={"' . $req_list[$sort_col] . '":' . $sort_val .'}';
-	}
+    foreach ($filter_list as $filter_key => $filter_val) {
+        $url .= '&' . $filter_key . '=' . urlencode($filter_val);
+    }
 
-	$ucfirst_arr = ['type'];
+    $ucfirst_arr = ['type'];
 
     $ch = curl_init();
 
@@ -25,6 +36,8 @@
     foreach ($request_header as $key => $header) {
         $header_arr[] = $key . ': ' . $header;
     }
+    // echo $url;
+    // exit;
     //set the url, number of POST vars, POST data
     curl_setopt($ch, CURLOPT_URL, $url);
 
@@ -74,13 +87,17 @@
     				$dt[] = $data[$param] == 1 ? 'Active' : 'Inactive';
     			} else if(in_array($param, $ucfirst_arr)) {
     				$dt[] = ucfirst($data[$param]);
-    			} else  if($param == 'unique_id') {
-    				$link_dt = strtr($id_link, ['{id}' => $data[$param]]);
-    				$dt[] = '<a href="' . $link_dt . '">' . $data[$param] . '</a>';
+    			} else if($param == 'unique_id') {
+                    $link_dt = strtr($id_link, ['{unique_id}' => $data[$param]]);
+                    $dt[] = '<a href="' . $link_dt . '">' . $data[$param] . '</a>';
+                } else if($param == 'start_date' || $param == 'end_date') {
+    				$dt[] = date('Y-m-d H:i', strtotime($data[$param]));
     			} else {
     				$dt[] = $data[$param];
     			}
     		}
+            $dt[] = '<div class="update_active update_status" rel="' . $data['is_active'] . '" type="' . $req_type . '" data_unique_id="' . $data['unique_id'] . '">' . ($data['is_active'] == 1 ? '<label class="switch switch-small" title="Click to deactivate this record"><input type="checkbox" checked="" value="1"><span></span></label>' : '<label class="switch switch-small" title="Click to activate this record"><input type="checkbox" value="1"><span></span></label>' ) . '</div>';
+
     		$data_list[] = $dt;
     	}
 		$aaData = $data_list;
