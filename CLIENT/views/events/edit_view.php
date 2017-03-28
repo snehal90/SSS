@@ -44,8 +44,6 @@ $(document).ready(function() {
                 theme: 'default'
             }
         });
-    scope.testttt = 'testing';
-    console.log(scope.content, "::::scope");
     // $('#content').code(content);
     $("#start_time,#end_time").timepicker({minuteStep: 1,showMeridian: false, defaultTime: ''});
 });

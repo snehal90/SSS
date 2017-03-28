@@ -2,7 +2,7 @@ var app = angular.module('sss_admin', ['ui.router', 'angularCSS', 'config', 'ngF
 var images_list = [];
 var gallery_list = [];
 
-app.config(['$stateProvider', '$urlRouterProvider', '$cssProvider', function($stateProvider, $urlRouterProvider, $cssProvider) {
+app.config(['$stateProvider', '$urlRouterProvider', '$cssProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $cssProvider, $locationProvider) {
 	angular.extend($cssProvider.defaults, {
 	    persist: true,
 	    preload: true,
@@ -45,11 +45,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$cssProvider', function($st
 		},
 		controller : 'EventCtrl'
 	});
-	// $locationProvider.html5Mode(true);
+	$locationProvider.html5Mode(true);
 }]);
 
 app.run(function($rootScope, $window, $http, CONFIGS) {
-	$rootScope.base_url = location.origin + '/#/';
+	$rootScope.base_url = location.origin + '/';
 	$window.addEventListener('beforeunload', function() {
     	var file_paths = [];
 		for(var x in images_list) {
