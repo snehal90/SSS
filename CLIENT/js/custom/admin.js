@@ -1,4 +1,4 @@
-var app = angular.module('sss_admin', ['ui.router', 'angularCSS', 'config', 'ngFileUpload']);
+var app = angular.module('sss_admin', ['ui.router', 'sss_master', 'angularCSS', 'config', 'ngFileUpload']);
 var images_list = [];
 var gallery_list = [];
 
@@ -48,7 +48,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$cssProvider', '$locationPr
 	$locationProvider.html5Mode(true);
 }]);
 
-app.run(function($rootScope, $window, $http, CONFIGS) {
+app.run(function($rootScope, $window, $http, CONFIGS, utilService) {
+	$rootScope.utilService = utilService;
 	$rootScope.base_url = location.origin + '/';
 	$window.addEventListener('beforeunload', function() {
     	var file_paths = [];
@@ -274,7 +275,7 @@ app.controller('EventCtrl', function($scope, $http, CONFIGS, $timeout, Upload, $
 				$scope.content = event_list.content;
 
 				var start_datetime = event_list.start_date;
-				var formatted_start_date = $rootScope.formatDate(start_datetime);
+				var formatted_start_date = $rootScope.utilService.formatDate(start_datetime);
 				// $scope.start_date = formatted_start_date.datepicker_val;
 				var start_date = formatted_start_date.datepicker_val;
 				var start_time = formatted_start_date.timepicker_val;
@@ -282,7 +283,7 @@ app.controller('EventCtrl', function($scope, $http, CONFIGS, $timeout, Upload, $
 				$("#start_date").datepicker('setDates', start_date)
 
 				var end_datetime = event_list.end_date;
-				var formatted_end_date = $rootScope.formatDate(end_datetime);
+				var formatted_end_date = $rootScope.utilService.formatDate(end_datetime);
 				// $scope.end_date = formatted_end_date.datepicker_val;
 				var end_date = formatted_end_date.datepicker_val;
 				var end_time = formatted_end_date.timepicker_val;

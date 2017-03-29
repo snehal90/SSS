@@ -127,7 +127,7 @@ Home Slider
                 <ul class="project-wrapper wow animated fadeInUp">
                     <li class="portfolio-item" ng-repeat="event_dt in upcoming_events_list">
                         <a href="#" >
-                            <img ng-src="{{formatImagePath(event_dt.images[0].image_path, 'MID')}}" class="img-responsive" alt="{{event_dt.name}}" onerror="this.src='/assets/images/no_image_default.png'" />
+                            <img ng-src="{{utilService.formatImagePath(event_dt.images[0].image_path, 'MID')}}" class="img-responsive" alt="{{event_dt.name}}" onerror="this.src='/assets/images/no_image_default.png'" />
                         </a>
                         <figcaption class="mask">
                             <h3>{{event_dt.name}}</h3>

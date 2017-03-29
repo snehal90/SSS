@@ -1,11 +1,13 @@
 var remove_images_list = [];
-var app = angular.module('sss_master', ['ui.router', 'sss_frontend', 'sss_admin', 'angularCSS']);
-app.controller('MasterCtrl', function($scope, $location, $rootScope) {
-	$scope.getClass = function (path) {
+var app = angular.module('sss_master', ['ui.router', 'angularCSS']);
+// app.controller('MasterCtrl', function($scope, $location, $rootScope) {
+app.service('utilService', function($location) {
+
+	getClass = function (path) {
 	  	return ($location.path().substr(0, path.length) === path) ? 'active' : '';
 	}
 
-	$rootScope.formatDate = function (actual_date) {
+	formatDate = function (actual_date) {
 		var actual_date = new Date(actual_date);
 		var date_val = actual_date.getDate();
 		var month_val = actual_date.getMonth()+1;
@@ -19,7 +21,7 @@ app.controller('MasterCtrl', function($scope, $location, $rootScope) {
 		return {'datepicker_val' : datepicker_val, 'timepicker_val' : timepicker_val};
 	};
 
-	$scope.formatImagePath = function(image_path, type) {
+	formatImagePath = function(image_path, type) {
 		console.log('in func.....');
 		var splitted_path = image_path.split('/');
 		var file_name = splitted_path[splitted_path.length - 1];
@@ -31,6 +33,13 @@ app.controller('MasterCtrl', function($scope, $location, $rootScope) {
 		console.log(formatted_url, "::::formatted_url");
 		return formatted_url;
 	};
+
+	return {
+		getClass : getClass,
+		formatDate : formatDate,
+		formatImagePath : formatImagePath,
+	};
+// });
 });
 
 $(document).on('click', '.file_remove', function(ev) {

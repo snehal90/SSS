@@ -60,7 +60,7 @@
                     <a ng-repeat="image in existing_images" class="gallery-item" href="{{image.image_path}}" title="{{image.image_path}}" data-gallery="">
                         <div class="image">
                             <span class="helper"></span>
-                            <img ng-src="{{formatImagePath(image.image_path, 'THUMB')}}" alt="{{formatImagePath(image.image_path, 'THUMB')}}" onerror="this.src='/assets/images/no_image_default.png'">    
+                            <img ng-src="{{utilService.formatImagePath(image.image_path, 'THUMB')}}" alt="{{utilService.formatImagePath(image.image_path, 'THUMB')}}" onerror="this.src='/assets/images/no_image_default.png'">    
                             <ul class="gallery-item-controls">
                                 <li><span class="file_remove" data-path="{{image.path}}" title="Click to remove image"><i class="fa fa-times"></i></span></li>
                             </ul>                                                                    

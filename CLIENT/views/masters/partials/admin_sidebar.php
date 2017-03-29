@@ -23,11 +23,11 @@
             </div>                                                                        
         </li>
         <li class="xn-title">Navigation</li>
-        <li ng-class="getClass('/admin/dashboard')">
+        <li ng-class="utilService.getClass('/admin/dashboard')">
 
             <a href="{{base_url}}admin/dashboard"><span class="fa fa-desktop"></span> <span class="xn-text">Dashboard</span></a>                        
         </li>                    
-        <li ng-class="getClass('/admin/events')">
+        <li ng-class="utilService.getClass('/admin/events')">
             <a href="{{base_url}}admin/events"><span class="fa fa-group"></span> <span class="xn-text">Events</span></a>
             <!-- <ul>
                 <li><a href="pages-gallery.html"><span class="fa fa-image"></span> Gallery</a></li>

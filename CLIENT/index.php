@@ -2,7 +2,7 @@
 <?php 
     if (strpos($_SERVER['REQUEST_URI'], 'admin') !== false) {
 ?>
-<html ng-app="sss_master" lang="en">
+<html ng-app="sss_admin" lang="en">
     <head>        
         <!-- META SECTION -->
         <title>Shree Swami Samarth</title>            
@@ -26,13 +26,12 @@
         <script type="text/javascript" src="/js/angular-css.min.js"></script>
         <script type="text/javascript" src="/js/ng-file-upload-shim.min.js"></script>
         <script type="text/javascript" src="/js/ng-file-upload.min.js"></script>
+        <script type="text/javascript" src="/js/custom/script.js"></script>
         <script type="text/javascript" src="/js/custom/config.js"></script>
         <script type="text/javascript" src="/js/custom/admin.js"></script>
-        <script type="text/javascript" src="/js/custom/frontend.js"></script>
-        <script type="text/javascript" src="/js/custom/script.js"></script>
         <!-- END ANGULAR -->
     </head>
-    <body ui-view="" ng-controller="MasterCtrl">
+    <body ui-view="">
     </body>
 </html>
 <?php 
@@ -42,7 +41,7 @@
 <!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> 
-<html ng-app="sss_master" lang="en" class="no-js"> <!--<![endif]-->
+<html ng-app="sss_frontend" lang="en" class="no-js"> <!--<![endif]-->
     <head>
         <!-- meta character set -->
         <meta charset="utf-8">
@@ -84,10 +83,9 @@
         <script type="text/javascript" src="/js/angular-css.min.js"></script>
         <script type="text/javascript" src="/js/ng-file-upload-shim.min.js"></script>
         <script type="text/javascript" src="/js/ng-file-upload.min.js"></script>
+        <script type="text/javascript" src="/js/custom/script.js"></script>
         <script type="text/javascript" src="/js/custom/config.js"></script>
         <script type="text/javascript" src="/js/custom/frontend.js"></script>
-        <script type="text/javascript" src="/js/custom/admin.js"></script>
-        <script type="text/javascript" src="/js/custom/script.js"></script>
         <script type="text/javascript" src="/js/frontend/modernizr-2.6.2.min.js"></script>
         <script type="text/javascript" src="/js/frontend/jquery.singlePageNav.min.js"></script>
         <script type="text/javascript" src="/js/frontend/jquery.fancybox.pack.js"></script>
@@ -118,7 +116,7 @@
         End Fixed Navigation
         ==================================== -->
         
-        <main class="site-content" role="main" ui-view="" ng-controller="MasterCtrl" >
+        <main class="site-content" role="main" ui-view="" >
             
         </main>
         
