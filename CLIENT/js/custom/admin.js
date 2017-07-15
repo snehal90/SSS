@@ -1,4 +1,4 @@
-var app = angular.module('sss_admin', ['ui.router', 'sss_master', 'angularCSS', 'config', 'ngFileUpload']);
+var app = angular.module('sss_admin', ['ui.router', 'sss_master', 'angularCSS', 'config', 'ngFileUpload', 'ngCookies']);
 var images_list = [];
 var gallery_list = [];
 
@@ -13,11 +13,17 @@ app.config(['$stateProvider', '$urlRouterProvider', '$cssProvider', '$locationPr
 		url: '/admin',
 		abstract: true,
 		templateUrl : '/views/masters/partials/admin_body.php',
+		controller : 'CommonCtrl',
 		css: {
 	        href: '/css/theme-default.css',
 	        preload: true,
 	        persist: true
 	    }
+	}).state('login', {
+		url: '/login',
+		templateUrl : '/views/login/login_view.php',
+		css: ['/css/theme-default.css'],
+		controller: 'LoginCtrl'
 	}).state('admin.dashboard', {
 		url: '/dashboard',
 		templateUrl : '/views/dashboard/home.php',
@@ -48,7 +54,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$cssProvider', '$locationPr
 	$locationProvider.html5Mode(true);
 }]);
 
-app.run(function($rootScope, $window, $http, CONFIGS, utilService) {
+app.run(function($rootScope, $window, $http, CONFIGS, utilService, $cookies) {
 	$rootScope.utilService = utilService;
 	$rootScope.base_url = location.origin + '/';
 	$window.addEventListener('beforeunload', function() {
@@ -73,10 +79,123 @@ app.run(function($rootScope, $window, $http, CONFIGS, utilService) {
 			return null;
 		});
     });
+
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+
+		var isAuthenticationRequired = 0;
+		console.log(toState.name, ":::toState");
+		console.log(fromState, ":::fromState");
+		if($cookies.get('user_email') != undefined) {
+			isAuthenticationRequired = 1;
+		}
+
+		if(isAuthenticationRequired == 0 && toState.name != 'login')
+		{
+		  event.preventDefault();
+		  location.href = $rootScope.base_url + 'login'
+		}
+	});
 });
 
 app.controller('HomeCtrl', function($scope) {
 	$scope.page_heading = "Dashboard";
+});
+
+app.controller('CommonCtrl', function($scope, $cookies) {
+	$scope.logout = function() {
+		$cookies.remove('user_id');
+		$cookies.remove('user_first_name');
+		$cookies.remove('user_last_name');
+		$cookies.remove('user_email');
+		$cookies.remove('user_access_token');
+		location.href = $scope.base_url + 'login';
+	};
+});
+
+app.controller('LoginCtrl', function($scope, $http, CONFIGS, $cookies) {
+	// $scope.page_heading = "Login";
+
+	$scope.login = function() {
+		console.log('in login functionSS');
+		$('label.error').remove();
+		var email = $.trim($scope.email);
+		var password = $.trim($scope.password);
+		// var images = files_dt.length != 0 ? files_dt : {};
+		var error_msg = {};
+		var email_regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+		if(email == '') {
+			error_msg['#email'] = 'Please enter email';
+		} else if (!email_regex.test(email)) {
+			error_msg['#email'] = 'Please enter a valid email';
+        }
+
+		if(password == '') {
+			error_msg['#password'] = 'Please enter password';
+		}
+
+		// console.log(error_msg, "::::error_msg");
+		if(Object.keys(error_msg).length != 0) {
+			showError(error_msg);
+		} else {
+
+			var post_data = {};
+
+			post_data = {
+				email : email,
+				password : password
+			};
+
+			var headers = {'secret_key' : CONFIGS.secret_key, "accept": "application/json"};
+			// console.log(post_data, "::::post_data");
+			// return false;
+
+			$http({
+				url : CONFIGS.api_url + 'user/login',
+				headers : headers,
+				method : 'post',
+				data : post_data,
+				dataType:'json',
+			}).success(function(ret_dt, status, headers) {
+				if(ret_dt.status == 'success') {
+					$('.main_error_wrapper').hide();
+					$('#message-box-success').show();
+					$cookies.put('user_id', ret_dt.user._id);
+					$cookies.put('user_first_name', ret_dt.user.first_name);
+					$cookies.put('user_last_name', ret_dt.user.last_name);
+					$cookies.put('user_email', ret_dt.user.email);
+					$cookies.put('user_access_token', headers('access_token'));
+					// console.log(status, ":::::status");
+					// console.log(headers(), ":::::headers");
+					// console.log($cookies.get('user'), ":::::cookie");
+					setTimeout(function() {
+						location.href = $scope.base_url + 'admin/dashboard';
+					}, 1000);
+
+				} else {
+					if(typeof ret_dt.message == 'string') {
+						$('.main_error_wrapper').find('#error_container').text(ret_dt.message);
+						$('.main_error_wrapper').addClass('alert-danger').show();
+					} else {
+
+					}
+					$('html, body').animate({
+						scrollTop : 0
+					}, 'slow');
+				}
+			}).error(function(ret_dt) {
+				console.log(ret_dt, "::::errr ret_dt");
+				if(typeof ret_dt.message == 'string') {
+					$('.main_error_wrapper').find('#error_container').text(ret_dt.message);
+					$('.main_error_wrapper').addClass('alert-danger').show();
+				} else {
+
+				}
+				$('html, body').animate({
+					scrollTop : 0
+				}, 'slow');
+			});
+		}
+	};
 });
 
 app.controller('EventCtrl', function($scope, $http, CONFIGS, $timeout, Upload, $compile, $rootScope) {
@@ -164,6 +283,7 @@ app.controller('EventCtrl', function($scope, $http, CONFIGS, $timeout, Upload, $
     };
 
 	$scope.addEvent = function() {
+		$('label.error').remove();
 		var name = $.trim($scope.name);
 		var short_description = $.trim($scope.short_description);
 		var content = $.trim($('#content').code());
@@ -314,6 +434,7 @@ app.controller('EventCtrl', function($scope, $http, CONFIGS, $timeout, Upload, $
 
 
 	$scope.update = function(id, post_data) {
+		$('label.error').remove();
 		if(post_data == undefined) {
 			var name = $.trim($scope.name);
 			var short_description = $.trim($scope.short_description);
@@ -419,16 +540,22 @@ app.controller('EventCtrl', function($scope, $http, CONFIGS, $timeout, Upload, $
 		});
 	}
 
-	function showError(error_list) {
-		for(var j in error_list) {
-			if($(j).parent('div').find('.error').length != 0) {
-				$(j).parent('div').find('.error').remove();
-			}
-			$('<label class="error">' + error_list[j] + '</label>').insertAfter($(j)).show();
+});
+function showError(error_list) {
+	for(var j in error_list) {
+		if($(j).parent('div').find('.error').length != 0) {
+			$(j).parent('div').find('.error').remove();
 		}
+		$('<label class="error">' + error_list[j] + '</label>').insertAfter($(j)).show();
+	}
 
+	if($('.page-content-wrap').length != 0) {
 		$('html, body').animate({
 			scrollTop : $('.page-content-wrap').offset().top
 		}, 'slow');
+	} else {
+		$('html, body').animate({
+			scrollTop : 0
+		}, 'slow');
 	}
-});
+}

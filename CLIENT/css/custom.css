@@ -1,0 +1,4 @@
+#upcoming_events .container .row, #features .container .row,  #contact .container .row {
+	margin-top: 30px;
+    margin-bottom: 30px;
+}

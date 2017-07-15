@@ -23,5 +23,11 @@
 		"POST" : {
 			"route" : "UtilController:deleteFiles"
 		}
+	},
+	"/user/login" : {
+		"POST" : {
+			"route" : "UserController:login",
+			"policy" : "AuthPolicy:checkSecretKey"
+		}
 	}
 }

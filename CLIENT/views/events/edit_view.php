@@ -1,4 +1,4 @@
-<div ng-controller="EventCtrl">
+<div>
 	<?php include('../../views/masters/partials/admin_heading.php');?>
 	<!-- PAGE CONTENT WRAPPER -->
 	<div class="page-content-wrap">

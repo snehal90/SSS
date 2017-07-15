@@ -10,8 +10,12 @@ var env_config = require('./config/env')();
 
 console.log(env_config, "::::env_config");
 
+//global variables
 global.ROOT_DIR = __dirname + '/';
 global.BASE_URL = '//' + env_config.api_host + ':' + env_config.port + '/';
+global.PWD_SALT = 'PINKPYTHON';
+global.SECRET_KEY = 'dBBmapwEBWUkcUg7xP8Buvp6vc36truv';
+global.JWT_SECRET_KEY = 'SsQcqWRZDYsnsJBaHQvmDE5q4r4t75Mb';
 
 var app = express();
 var db_file = require('./db');
@@ -37,13 +41,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 allowCrossDomain = function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Origin, Content-Type, Authorization, Content-Length, X-Requested-With');
-  if ('OPTIONS' === req.method) {
-    res.sendStatus(200);
-  } else {
-    next();
-  }
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, Content-Type, Authorization, Content-Length, X-Requested-With, secret_key, access_token');
+  res.header("Access-Control-Expose-Headers", "access_token");
+  next();
+  // if ('OPTIONS' === req.method) {
+    // next();
+    // res.sendStatus(200);
+  // } else {
+  // }
 };
 
 app.use(allowCrossDomain);

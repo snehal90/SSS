@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php 
-    if (strpos($_SERVER['REQUEST_URI'], 'admin') !== false) {
+    if (strpos($_SERVER['REQUEST_URI'], 'admin') !== false || strpos($_SERVER['REQUEST_URI'], 'login') !== false) {
 ?>
 <html ng-app="sss_admin" lang="en">
     <head>        
@@ -24,6 +24,7 @@
         <script type="text/javascript" src="/js/angular.min.js"></script>
         <script type="text/javascript" src="/js/angular-ui-router.min.js"></script>
         <script type="text/javascript" src="/js/angular-css.min.js"></script>
+        <script type="text/javascript" src="/js/angular-cookies.min.js"></script>
         <script type="text/javascript" src="/js/ng-file-upload-shim.min.js"></script>
         <script type="text/javascript" src="/js/ng-file-upload.min.js"></script>
         <script type="text/javascript" src="/js/custom/script.js"></script>
@@ -31,7 +32,7 @@
         <script type="text/javascript" src="/js/custom/admin.js"></script>
         <!-- END ANGULAR -->
     </head>
-    <body ui-view="">
+    <body class="ui-view">
     </body>
 </html>
 <?php 
@@ -69,6 +70,7 @@
         <link rel="stylesheet" href="/css/frontend/slit-slider.css">
         <link rel="stylesheet" href="/css/frontend/animate.css">
         <link rel="stylesheet" href="/css/frontend/main.css">
+        <link rel="stylesheet" href="/css/custom.css">
 
         <!-- Modernizer Script for old Browsers -->
         <!-- START PLUGINS -->
