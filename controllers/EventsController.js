@@ -6,9 +6,9 @@ exports.getList = function(req, res, callback) {
 
 	event_model.getList(function(err, ret_data) {
 		if(err) {
-			return res.status(err.responseHeaders).send(err.responseParams);
+			return res.status(err.responseHeaders.status).send(err.responseParams);
 		}
-		res.status(ret_data.responseHeaders).send(ret_data.responseParams);
+		res.status(ret_data.responseHeaders.status).send(ret_data.responseParams);
 	}, query);
 };
 
@@ -17,9 +17,9 @@ exports.add = function(req, res, callback) {
 
 	event_model.add(data, function(err, ret_data) {
 		if(err) {
-			return res.status(err.responseHeaders).send(err.responseParams);
+			return res.status(err.responseHeaders.status).send(err.responseParams);
 		}
-		return res.status(ret_data.responseHeaders).send(ret_data.responseParams);
+		return res.status(ret_data.responseHeaders.status).send(ret_data.responseParams);
 	});
 };
 
@@ -32,9 +32,9 @@ exports.update = function(req, res, callback) {
 
 	event_model.update(function(err, ret_data) {
 		if(err) {
-			return res.status(err.responseHeaders).send(err.responseParams);
+			return res.status(err.responseHeaders.status).send(err.responseParams);
 		}
 		delete ret_data.responseParams.data;
-		return res.status(ret_data.responseHeaders).send(ret_data.responseParams);
+		return res.status(ret_data.responseHeaders.status).send(ret_data.responseParams);
 	}, data, unique_id);
 };

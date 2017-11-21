@@ -9,12 +9,12 @@ exports.fileUpload = function(req, res, callback) {
 	file_helper_obj.uploadImages(function(err, res_dt) {
 		if(err) {
 			var error = errorCodes.error_403.server_error;
-			return res.status(error.responseHeaders).send(error.responseParams);
+			return res.status(error.responseHeaders.status).send(error.responseParams);
 		}
 		var result_response = errorCodes.error_200.success;
 
 		result_response.responseParams.data = res_dt;
-		res.status(result_response.responseHeaders).send(result_response.responseParams);
+		res.status(result_response.responseHeaders.status).send(result_response.responseParams);
 	}, images, type.toUpperCase());
 }
 
@@ -64,6 +64,6 @@ exports.deleteFiles = function(req, res, callback) {
 	if(res == undefined) {
 		return delete_files_res.responseParams;
 	} else {
-		res.status(delete_files_res.responseHeaders).send(delete_files_res.responseParams);
+		res.status(delete_files_res.responseHeaders.status).send(delete_files_res.responseParams);
 	}
 }
